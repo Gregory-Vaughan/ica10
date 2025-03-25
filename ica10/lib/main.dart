@@ -55,7 +55,7 @@ class _SignupFormState extends State<SignupForm> {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            // Name Field
+            
             TextFormField(
               decoration: const InputDecoration(
                 labelText: 'Name',
@@ -69,7 +69,7 @@ class _SignupFormState extends State<SignupForm> {
               },
             ),
             const SizedBox(height: 16),
-            // Email Field
+          
             TextFormField(
               decoration: const InputDecoration(
                 labelText: 'Email',
@@ -85,7 +85,7 @@ class _SignupFormState extends State<SignupForm> {
               },
             ),
             const SizedBox(height: 16),
-            // Date of Birth Field
+        
             TextFormField(
               decoration: const InputDecoration(
                 labelText: 'Date of Birth',
@@ -93,19 +93,16 @@ class _SignupFormState extends State<SignupForm> {
               ),
               onTap: () async {
                 FocusScope.of(context).requestFocus(FocusNode());
-                DateTime? date = await showDatePicker(
+                await showDatePicker(
                   context: context,
                   initialDate: DateTime.now(),
                   firstDate: DateTime(1900),
                   lastDate: DateTime.now(),
                 );
-                if (date != null) {
-                  
-                }
               },
             ),
             const SizedBox(height: 16),
-          
+            
             TextFormField(
               obscureText: true,
               decoration: const InputDecoration(
@@ -128,14 +125,49 @@ class _SignupFormState extends State<SignupForm> {
                 onPressed: () {
                   
                   if (_formKey.currentState!.validate()) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Signup Successful')),
-                    );
                     
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ConfirmationScreen(),
+                      ),
+                    );
                   }
                 },
                 child: const Text('Sign Up'),
               ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ConfirmationScreen extends StatelessWidget {
+  const ConfirmationScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Signup Successful'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'You have successfully signed up!',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                
+                Navigator.pop(context);
+              },
+              child: const Text('Go Back'),
             ),
           ],
         ),
